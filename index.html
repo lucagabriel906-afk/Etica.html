@@ -5,39 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ética — 6º Ano</title>
 <style>
-/* ── CONFIGURAÇÕES GERAIS E VARIÁVEIS ── */
+/* ── CONFIGURAÇÕES GERAIS E VARIÁVEIS (TEMA HOMEM-ARANHA) ── */
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --secondary: #7c3aed;
-  --accent: #ec4899;
-  --background: #f8fafc;
-  --surface: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --border: #e2e8f0;
+  --primary: #dc2626; /* Vermelho Aranha */
+  --primary-hover: #b91c1c;
+  --secondary: #1d4ed8; /* Azul Teia */
+  --accent: #f59e0b; /* Amarelo de Destaque */
+  --background: #0f172a; /* Fundo Escuro Confortável */
+  --surface: #1e293b; /* Superfície dos Cards */
+  --text-main: #f8fafc; /* Texto Claro */
+  --text-muted: #94a3b8;
+  --border: #334155;
   --radius-lg: 16px;
   --radius-md: 12px;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -2px rgba(0,0,0,0.3);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--background);color:var(--text-main);line-height:1.6}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--background);color:var(--text-main);line-height:1.6;position:relative}
+
+/* ── TEIAS DECORATIVAS NOS CANTOS DA TELA ── */
+body::before, body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
+}
+body::before {
+  left: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,0 L100,0 C80,20 20,80 0,100 Z" fill="none" stroke="white" stroke-width="1"/><path d="M0,0 Q50,20 100,0 M0,0 Q20,50 0,100 M0,0 Q40,40 50,50 M0,0 Q30,30 70,70" fill="none" stroke="white" stroke-width="0.5" stroke-dasharray="2,2"/><path d="M20,0 Q20,20 0,20 M40,0 Q40,40 0,40 M60,0 Q60,60 0,60 M80,0 Q80,80 0,80" fill="none" stroke="white" stroke-width="0.5"/></svg>');
+}
+body::after {
+  right: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M100,0 L0,0 C20,20 80,80 100,100 Z" fill="none" stroke="white" stroke-width="1"/><path d="M100,0 Q50,20 0,0 M100,0 Q80,50 100,100 M100,0 Q60,40 50,50 M100,0 Q70,30 30,70" fill="none" stroke="white" stroke-width="0.5" stroke-dasharray="2,2"/><path d="M80,0 Q80,20 100,20 M60,0 Q60,40 100,40 M40,0 Q40,60 100,60 M20,0 Q20,80 100,80" fill="none" stroke="white" stroke-width="0.5"/></svg>');
+}
 
 /* ── SCROLLBAR CORRIGIDA ── */
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:var(--background)}
-::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--primary)}
 
 /* ── ANIMAÇÕES REFINADAS ── */
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes bounceIn{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
-@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
 @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100px) rotate(360deg);opacity:0}}
 
 .fade-up{animation:fadeUp .4s cubic-bezier(0.16, 1, 0.3, 1) forwards}
@@ -46,8 +67,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--background);co
 .hidden{display:none!important}
 .confetti-piece{position:absolute;width:8px;height:8px;border-radius:50%;animation:confettiFall 1s linear forwards;pointer-events:none}
 
-/* ── NAVBAR MODERNA (EFEITO GLASS) ── */
-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:8px;overflow-x:auto;box-shadow:var(--shadow-sm)}
+/* ── NAVBAR MODERNA (EFEITO GLASS ARANHA) ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(30,41,59,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--primary);padding:0 24px;display:flex;align-items:center;gap:8px;overflow-x:auto;box-shadow:var(--shadow-sm)}
 nav .logo{font-size:24px;padding:12px 0;margin-right:12px;flex-shrink:0}
 nav a{text-decoration:none;padding:16px 12px;font-size:14px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s ease}
 nav a.active,nav a:hover{color:var(--primary);border-bottom-color:var(--primary)}
@@ -59,92 +80,92 @@ section{padding:80px 24px;max-width:1000px;margin:0 auto}
 .section-sub{color:var(--text-muted);font-size:16px;margin-top:8px}
 .section-header{text-align:center;margin-bottom:48px}
 
-/* ── HERO PREMIUM ── */
-#inicio-wrapper{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);position:relative;overflow:hidden}
+/* ── HERO ARANHA PREMIUM ── */
+#inicio-wrapper{background:linear-gradient(135deg,#b91c1c 0%,#1e3a8a 100%);position:relative;overflow:hidden;border-bottom:4px solid var(--primary)}
 #inicio{background:transparent;text-align:center;padding:100px 24px}
-.hero-circle{position:absolute;border-radius:50%;background:rgba(255,255,255,.06);animation:float 4s ease-in-out infinite}
+.hero-circle{position:absolute;border-radius:50%;background:rgba(255,255,255,.04);animation:float 4s ease-in-out infinite}
 .hero-inner{position:relative;z-index:2;max-width:650px;margin:0 auto}
 .hero-icon{font-size:72px;margin-bottom:12px;display:block}
-.hero-title{font-size:clamp(40px,7vw,56px);font-weight:900;color:#fff;margin-bottom:16px;letter-spacing:-1px}
-.hero-desc{font-size:clamp(16px,2.5vw,18px);color:rgba(255,255,255,.85);margin-bottom:32px;line-height:1.6}
+.hero-title{font-size:clamp(40px,7vw,56px);font-weight:900;color:#fff;margin-bottom:16px;letter-spacing:-1px;text-shadow: 2px 2px 4px rgba(0,0,0,0.6)}
+.hero-desc{font-size:clamp(16px,2.5vw,18px);color:rgba(255,255,255,.95);margin-bottom:32px;line-height:1.6}
 .hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
-.hero-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 14px;color:#fff;font-size:13px;font-weight:600}
-.btn-hero{display:inline-block;background:#fff;color:var(--primary);padding:14px 32px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:var(--shadow-md);transition:all .2s ease}
-.btn-hero:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);background:#f8fafc}
+.hero-badge{background:rgba(0,0,0,.4);border:1px solid var(--primary);border-radius:999px;padding:6px 14px;color:#fff;font-size:13px;font-weight:600}
+.btn-hero{display:inline-block;background:var(--primary);color:#fff;padding:14px 32px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:var(--shadow-md);transition:all .2s ease;border:2px solid #fff}
+.btn-hero:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);background:var(--secondary)}
 
 /* ── O QUE É ── */
-#oque-e{background:var(--surface)}
-.regra-ouro{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:var(--radius-lg);padding:32px;margin-bottom:40px;display:flex;align-items:center;gap:24px;color:#fff}
-.regra-ouro-text>p:first-child{color:rgba(255,255,255,.75);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+#oque-e{background:var(--surface);border-bottom:1px solid var(--border)}
+.regra-ouro{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:var(--radius-lg);padding:32px;margin-bottom:40px;display:flex;align-items:center;gap:24px;color:#fff;box-shadow:var(--shadow-md);border:1px solid rgba(255,255,255,0.1)}
+.regra-ouro-text>p:first-child{color:rgba(255,255,255,.85);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .regra-ouro-text>p:nth-child(2){font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1.3;margin-bottom:4px}
-.regra-ouro-text>p:last-child{color:rgba(255,255,255,.8);font-size:14px}
+.regra-ouro-text>p:last-child{color:rgba(255,255,255,.9);font-size:14px}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
 .info-card{background:var(--background);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;transition:all .25s ease;cursor:pointer}
-.info-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:#cbd5e1}
-.info-card.open{background:var(--surface);border-color:var(--primary);box-shadow:var(--shadow-md)}
+.info-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--primary)}
+.info-card.open{background:var(--surface);border-color:var(--secondary);box-shadow:var(--shadow-md)}
 .info-card .card-icon{font-size:32px;margin-bottom:8px}
 .info-card h3{font-weight:700;font-size:16px;color:var(--text-main);margin-bottom:6px}
 .info-card p{font-size:14px;line-height:1.6;color:var(--text-muted)}
 .filosofo-box{margin-top:40px;background:var(--background);border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);display:flex;gap:20px;flex-wrap:wrap;align-items:center}
-.filosofo-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ea580c);display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}
+.filosofo-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}
 .filosofo-box .badge{color:var(--primary);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
 .filosofo-box h3{font-size:20px;font-weight:800;margin-bottom:4px}
 .filosofo-box p{color:var(--text-muted);font-size:14px}
 
 /* ── VALORES ── */
-#valores{background:var(--background)}
+#valores{background:var(--background);border-bottom:1px solid var(--border)}
 .valores-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .valor-card{border-radius:var(--radius-lg);padding:24px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);transition:all .25s ease}
-.valor-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.valor-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--primary)}
 .valor-head{display:flex;align-items:center;gap:14px}
-.valor-emoji-wrap{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.valor-emoji-wrap{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border:1px solid rgba(255,255,255,0.1)}
 .valor-info h3{font-weight:700;font-size:17px;color:var(--text-main)}
 .valor-info .expand-btn{background:none;border:none;color:var(--primary);font-size:12px;font-weight:600;cursor:pointer;padding:0;margin-top:2px;display:block}
 .valor-body{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);animation:fadeUp .3s ease}
 .valor-body p{color:var(--text-muted);font-size:14px;margin-bottom:12px}
-.valor-box{background:var(--background);border-radius:var(--radius-md);padding:12px;margin-bottom:8px}
+.valor-box{background:var(--background);border-radius:var(--radius-md);padding:12px;margin-bottom:8px;border-left:3px solid var(--secondary)}
 .valor-box .box-label{color:var(--text-main);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
 .valor-box p{font-size:13px;color:var(--text-muted);margin:0}
 
 /* ── COTIDIANO ── */
-#cotidiano{background:var(--surface)}
+#cotidiano{background:var(--surface);border-bottom:1px solid var(--border)}
 .result-banner{border-radius:var(--radius-lg);padding:32px;margin-bottom:32px;text-align:center;color:#fff;display:none}
 .result-banner.visible{display:block}
 .result-banner .result-icon{font-size:44px;margin-bottom:8px}
 .result-banner h3{font-size:20px;font-weight:800;margin-bottom:4px}
 .result-banner p{font-size:14px;margin-bottom:16px;opacity:0.9}
-.btn-retry{background:#fff;border:none;padding:10px 24px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px;box-shadow:var(--shadow-sm)}
+.btn-retry{background:#fff;color:var(--primary)!important;border:none;padding:10px 24px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px;box-shadow:var(--shadow-sm)}
 .cenarios-list{display:flex;flex-direction:column;gap:24px}
-.cenario-card{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden}
+.cenario-card{background:var(--background);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden}
 .cenario-header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:20px 24px;display:flex;align-items:center;gap:14px;color:#fff}
 .cenario-header .cen-icon{font-size:32px}
-.cenario-header small{opacity:0.7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.cenario-header small{opacity:0.8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
 .cenario-header h3{font-weight:800;font-size:18px}
 .cenario-body{padding:24px}
-.situacao-box{background:#f5f3ff;border-radius:var(--radius-md);padding:16px;border-left:4px solid var(--primary);margin-bottom:20px}
-.situacao-box p{color:#4338ca;font-size:15px;font-weight:500}
+.situacao-box{background:#1e293b;border-radius:var(--radius-md);padding:16px;border-left:4px solid var(--primary);margin-bottom:20px}
+.situacao-box p{color:#f8fafc;font-size:15px;font-weight:500}
 .opcoes-label{color:var(--text-muted);font-size:12px;font-weight:700;margin-bottom:12px;letter-spacing:0.5px}
 .opcoes-list{display:flex;flex-direction:column;gap:8px}
-.opcao-btn{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:left;cursor:pointer;font-size:14px;color:var(--text-main);font-weight:500;transition:all .2s ease;display:flex;align-items:center;gap:12px;width:100%}
-.opcao-btn .op-icon{font-size:16px;flex-shrink:0;color:#94a3b8}
-.opcao-btn:hover:not(:disabled){background:var(--background);border-color:#cbd5e1}
-.opcao-btn.correct{background:#ecfdf5;border-color:#10b981;color:#065f46;font-weight:600}
+.opcao-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:left;cursor:pointer;font-size:14px;color:var(--text-main);font-weight:500;transition:all .2s ease;display:flex;align-items:center;gap:12px;width:100%}
+.opcao-btn .op-icon{font-size:16px;flex-shrink:0;color:#64748b}
+.opcao-btn:hover:not(:disabled){background:var(--border);border-color:var(--primary)}
+.opcao-btn.correct{background:#064e3b;border-color:#10b981;color:#a7f3d0;font-weight:600}
 .opcao-btn.correct .op-icon{color:#10b981}
-.opcao-btn.wrong{background:#fef2f2;border-color:#ef4444;color:#991b1b;font-weight:600}
+.opcao-btn.wrong{background:#7f1d1d;border-color:#ef4444;color:#fca5a5;font-weight:600}
 .opcao-btn.wrong .op-icon{color:#ef4444}
-.opcao-btn.show-correct{background:#ecfdf5;border-color:#10b981;color:#065f46}
+.opcao-btn.show-correct{background:#064e3b;border-color:#10b981;color:#a7f3d0}
 .opcao-btn.show-correct .op-icon{color:#10b981}
 .feedback-box{margin-top:16px;border-radius:var(--radius-md);padding:16px;border:1px solid transparent;display:none}
 .feedback-box.visible{display:block}
-.feedback-box.good{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
-.feedback-box.bad{background:#fff7ed;border-color:#fed7aa;color:#92400e}
+.feedback-box.good{background:#064e3b;border-color:#047857;color:#a7f3d0}
+.feedback-box.bad{background:#7c2d12;border-color:#c2410c;color:#ffedd5}
 .feedback-box strong{display:block;font-size:14px;margin-bottom:4px}
 .feedback-box p{font-size:13px;line-height:1.6}
 
 /* ── QUIZ REESTRUTURADO ── */
-#quiz{background:var(--background)}
+#quiz{background:var(--background);border-bottom:1px solid var(--border)}
 .quiz-wrap{max-width:680px;margin:0 auto}
-.quiz-final{background:#fff;border-radius:var(--radius-lg);padding:40px 24px;text-align:center;box-shadow:var(--shadow-lg)}
+.quiz-final{background:var(--surface);border-radius:var(--radius-lg);padding:40px 24px;text-align:center;box-shadow:var(--shadow-lg);border:1px solid var(--primary)}
 .quiz-final .final-icon{font-size:64px;margin-bottom:12px}
 .quiz-final h3{font-size:26px;font-weight:800;margin-bottom:8px}
 .quiz-final p{color:var(--text-muted);font-size:16px;margin-bottom:24px}
@@ -152,43 +173,43 @@ section{padding:80px 24px;max-width:1000px;margin:0 auto}
 .quiz-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
 .quiz-dot.ok{background:#10b981}
 .quiz-dot.fail{background:#ef4444}
-.quiz-card{background:#fff;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--border)}
+.quiz-card{background:var(--surface);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--border)}
 .quiz-head{padding:24px;border-bottom:1px solid var(--border)}
 .quiz-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .quiz-meta span{color:var(--text-muted);font-weight:600;font-size:13px}
-.quiz-pts{background:#eef2ff;color:var(--primary);padding:4px 12px;border-radius:999px;font-weight:700;font-size:13px}
+.quiz-pts{background:#1e3a8a;color:#fff;padding:4px 12px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid var(--secondary)}
 .progress-wrap{background:var(--background);border-radius:999px;height:6px;overflow:hidden}
 .progress-bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:999px;transition:width .4s ease}
 .quiz-body{padding:24px;position:relative}
 .quiz-question{font-size:18px;font-weight:700;color:var(--text-main);line-height:1.5;margin-bottom:20px}
 .quiz-opts{display:flex;flex-direction:column;gap:10px}
-.quiz-opt{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:left;cursor:pointer;font-size:14px;color:var(--text-main);font-weight:500;line-height:1.5;transition:all .2s ease;display:flex;align-items:center;gap:12px;width:100%}
-.quiz-opt .opt-letter{width:24px;height:24px;border-radius:50%;background:var(--background);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--text-muted);flex-shrink:0}
-.quiz-opt:hover:not(:disabled){background:var(--background);border-color:#cbd5e1}
+.quiz-opt{background:var(--background);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:left;cursor:pointer;font-size:14px;color:var(--text-main);font-weight:500;line-height:1.5;transition:all .2s ease;display:flex;align-items:center;gap:12px;width:100%}
+.quiz-opt .opt-letter{width:24px;height:24px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--text-muted);flex-shrink:0}
+.quiz-opt:hover:not(:disabled){background:var(--border);border-color:var(--primary)}
 .quiz-opt:hover:not(:disabled) .opt-letter{background:var(--primary);color:#fff}
-.quiz-opt.correct{background:#ecfdf5;border-color:#10b981;color:#065f46}
+.quiz-opt.correct{background:#064e3b;border-color:#10b981;color:#a7f3d0}
 .quiz-opt.correct .opt-letter{background:#10b981;color:#fff}
-.quiz-opt.wrong{background:#fef2f2;border-color:#ef4444;color:#991b1b}
+.quiz-opt.wrong{background:#7f1d1d;border-color:#ef4444;color:#fca5a5}
 .quiz-opt.wrong .opt-letter{background:#ef4444;color:#fff}
-.quiz-opt.show-correct{background:#ecfdf5;border-color:#10b981;color:#065f46}
+.quiz-opt.show-correct{background:#064e3b;border-color:#10b981;color:#a7f3d0}
 .quiz-opt.show-correct .opt-letter{background:#10b981;color:#fff}
 .quiz-feedback{margin-top:16px;border-radius:var(--radius-md);padding:16px;border:1px solid transparent;display:none}
 .quiz-feedback.visible{display:block}
-.quiz-feedback.good{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
-.quiz-feedback.bad{background:#fff7ed;border-color:#fed7aa;color:#92400e}
+.quiz-feedback.good{background:#064e3b;border-color:#047857;color:#a7f3d0}
+.quiz-feedback.bad{background:#7c2d12;border-color:#c2410c;color:#ffedd5}
 .quiz-feedback strong{display:block;font-size:14px;margin-bottom:4px}
 .quiz-feedback p{font-size:13px;line-height:1.6}
-.btn-next{margin-top:16px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:12px;border-radius:var(--radius-md);font-weight:700;font-size:14px;cursor:pointer;width:100%;display:none;box-shadow:var(--shadow-sm)}
+.btn-next{margin-top:16px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:12px;border-radius:var(--radius-md);font-weight:700;font-size:14px;cursor:pointer;width:100%;display:none;box-shadow:var(--shadow-sm);border:1px solid #fff}
 .btn-next.visible{display:block}
-.btn-reiniciar{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:12px 32px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:var(--shadow-md)}
+.btn-reiniciar{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:12px 32px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:var(--shadow-md);border:1px solid #fff}
 
-/* ── DIGITAL (INTERFACE DE ABAS LIMPA) ── */
-#digital{background:var(--surface)}
-.digital-banner{background:linear-gradient(135deg,#0f172a,#1e1b4b);border-radius:var(--radius-lg);padding:32px;margin-bottom:32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:#fff}
+/* ── DIGITAL ── */
+#digital{background:var(--surface);border-bottom:1px solid var(--border)}
+.digital-banner{background:linear-gradient(135deg,#1e1b4b,#0f172a);border-radius:var(--radius-lg);padding:32px;margin-bottom:32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:#fff;border:1px solid var(--secondary)}
 .digital-banner h3{font-size:20px;font-weight:800;margin-bottom:4px}
 .digital-banner p{color:rgba(255,255,255,.8);font-size:14px}
 .abas{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
-.aba-btn{padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);transition:all .2s ease}
+.aba-btn{padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer;border:1px solid var(--border);background:var(--background);color:var(--text-muted);transition:all .2s ease}
 .aba-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
 .aba-content{background:var(--background);border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border)}
 .aba-content p{color:var(--text-muted);font-size:15px;margin-bottom:20px}
@@ -198,19 +219,19 @@ section{padding:80px 24px;max-width:1000px;margin:0 auto}
 .aba-ponto span{color:var(--text-main);font-size:13px;font-weight:500}
 
 /* ── GLOSSARIO INTERATIVO ── */
-#glossario{background:var(--background)}
+#glossario{background:var(--background);border-bottom:1px solid var(--border)}
 .busca-wrap{position:relative;margin-bottom:24px}
 .busca-wrap .busca-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text-muted)}
-.busca-input{width:100%;padding:14px 16px 14px 44px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:15px;background:var(--surface);outline:none;transition:all .2s ease;box-shadow:var(--shadow-sm)}
-.busca-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,0.15)}
+.busca-input{width:100%;padding:14px 16px 14px 44px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:15px;background:var(--surface);color:#fff;outline:none;transition:all .2s ease;box-shadow:var(--shadow-sm)}
+.busca-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(220,38,38,0.3)}
 .gloss-list{display:flex;flex-direction:column;gap:10px}
 .gloss-item{background:var(--surface);border-radius:var(--radius-md);border:1px solid var(--border);overflow:hidden;transition:all .2s ease;cursor:pointer;box-shadow:var(--shadow-sm)}
-.gloss-item:hover{border-color:#cbd5e1}
-.gloss-item.open{border-color:var(--primary)}
+.gloss-item:hover{border-color:var(--primary)}
+.gloss-item.open{border-color:var(--secondary)}
 .gloss-head{padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
 .gloss-head-left{display:flex;align-items:center;gap:12px}
-.gloss-abbr{width:36px;height:36px;border-radius:50%;background:#eef2ff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--primary)}
-.gloss-item.open .gloss-abbr{background:var(--primary);color:#fff}
+.gloss-abbr{width:36px;height:36px;border-radius:50%;background:var(--background);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--primary);border:1px solid var(--border)}
+.gloss-item.open .gloss-abbr{background:var(--primary);color:#fff;border-color:#fff}
 .gloss-head h4{font-weight:700;font-size:15px;color:var(--text-main)}
 .gloss-arrow{color:var(--text-muted);font-size:16px;transition:transform .2s ease}
 .gloss-item.open .gloss-arrow{transform:rotate(180deg)}
@@ -218,15 +239,61 @@ section{padding:80px 24px;max-width:1000px;margin:0 auto}
 .gloss-item.open .gloss-body{display:block}
 .gloss-body p{padding-top:12px;color:var(--text-muted);font-size:14px;line-height:1.6}
 
-/* ── CONCLUSÃO E FOOTER ── */
-footer{background:linear-gradient(135deg,#0f172a,#1e1b4b);padding:64px 24px 32px;text-align:center;color:#fff}
+/* ── CONCLUSÃO E FOOTER TEMÁTICO COM INTEGRANTES ── */
+footer{background:linear-gradient(135deg,#020617,#1e1b4b);padding:64px 24px 32px;text-align:center;color:#fff;border-top:4px solid var(--secondary)}
 .footer-inner{max-width:650px;margin:0 auto}
-footer h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:12px;letter-spacing:-0.5px}
-footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
+footer h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:12px;letter-spacing:-0.5px;text-shadow: 1px 1px 3px rgba(0,0,0,0.8)}
+footer p{color:rgba(255,255,255,.85);font-size:15px;margin-bottom:32px}
 .footer-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:40px}
-.footer-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-md);padding:16px 12px}
+.footer-card{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px 12px}
+.footer-card:hover{border-color:var(--primary)}
 .footer-card .fc-icon{font-size:28px;margin-bottom:6px}
 .footer-card p{color:#fff;font-weight:600;font-size:13px}
+
+/* ── ESTILIZAÇÃO DOS PERSONAGENS DOS INTEGRANTES ── */
+.integrantes-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.integrante-box {
+  background: rgba(30,41,59,0.6);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  width: 240px;
+  transition: all 0.3s ease;
+}
+.integrante-box:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+.char-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid var(--primary);
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.5);
+}
+.integrante-box h4 {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.integrante-box p {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
 .footer-hr{border-top:1px solid rgba(255,255,255,.1);padding-top:24px}
 .footer-hr p{color:rgba(255,255,255,.4);font-size:13px;margin:0}
 
@@ -236,6 +303,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
   .regra-ouro{padding:24px;flex-direction:column;text-align:center}
   .cenario-body,.quiz-body{padding:16px}
   .quiz-head{padding:16px}
+  .integrantes-container { gap: 16px; }
 }
 </style>
 </head>
@@ -243,7 +311,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 
 <!-- NAVBAR -->
 <nav>
-  <span class="logo">🧭</span>
+  <span class="logo">🕸️</span>
   <a href="#inicio-wrapper" class="active">Início</a>
   <a href="#oque-e">O que é?</a>
   <a href="#valores">Valores</a>
@@ -253,14 +321,14 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
   <a href="#glossario">Glossário</a>
 </nav>
 
-<!-- HERO CONTAINER CORRIGIDO -->
+<!-- HERO CONTAINER -->
 <div id="inicio-wrapper">
   <section id="inicio">
     <div class="hero-circle" style="width:100px;height:100px;top:10%;left:5%;animation-duration:4s"></div>
     <div class="hero-circle" style="width:60px;height:60px;top:60%;left:8%;animation-duration:5s"></div>
     <div class="hero-circle" style="width:80px;height:80px;top:20%;left:80%;animation-duration:4.5s"></div>
     <div class="hero-inner">
-      <span class="hero-icon float-anim">⚖️</span>
+      <span class="hero-icon float-anim">🕷️</span>
       <h1 class="hero-title">Ética</h1>
       <p class="hero-desc">Um guia dinâmico e interativo para aprender sobre atitudes, valores e cidadania no dia a dia.</p>
       <div class="hero-badges">
@@ -276,13 +344,13 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 <!-- O QUE É -->
 <section id="oque-e">
   <div class="section-header">
-    <span class="section-badge" style="background:#eef2ff;color:var(--primary)">FUNDAMENTOS</span>
+    <span class="section-badge" style="background:#7f1d1d;color:#fca5a5">FUNDAMENTOS</span>
     <h2 class="section-title">O que é Ética?</h2>
     <p class="section-sub">Antes de tudo, precisamos entender o que significa essa palavra tão importante.</p>
   </div>
 
   <div class="regra-ouro">
-    <span style="font-size:48px;flex-shrink:0">✨</span>
+    <span style="font-size:48px;flex-shrink:0">🕸️</span>
     <div class="regra-ouro-text">
       <p>A Regra de Ouro</p>
       <p>"Trate os outros como você gostaria de ser tratado."</p>
@@ -307,7 +375,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
       <h3>Importância</h3>
       <p>Clique para descobrir →</p>
     </div>
-    <div class="info-card" data-content="Moral são as regras de conduta de um grupo político ou cultural. A Ética vai além: ela reflete e questiona de forma crítica se essas regras são boas e justas de verdade.">
+    <div class="info-card" data-content="Moral são as regras de conduta de um groupo político ou cultural. A Ética vai além: ela reflete e questiona de forma crítica se essas regras são boas e justas de verdade.">
       <div class="card-icon">⚡</div>
       <h3>Diferença</h3>
       <p>Clique para descobrir →</p>
@@ -327,7 +395,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 <!-- VALORES -->
 <section id="valores">
   <div class="section-header">
-    <span class="section-badge" style="background:#fdf2f8;color:var(--accent)">OS PILARES</span>
+    <span class="section-badge" style="background:#1e3a8a;color:#93c5fd">OS PILARES</span>
     <h2 class="section-title">Valores Éticos Fundamentais</h2>
     <p class="section-sub">Abra os cards abaixo para explorar exemplos e dicas práticas.</p>
   </div>
@@ -337,16 +405,16 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 <!-- COTIDIANO -->
 <section id="cotidiano">
   <div class="section-header">
-    <span class="section-badge" style="background:#ecfdf5;color:#10b981">PRÁTICA</span>
+    <span class="section-badge" style="background:#064e3b;color:#a7f3d0">PRÁTICA</span>
     <h2 class="section-title">Ética no Cotidiano</h2>
     <p class="section-sub">Analise cada dilema e tome a decisão mais justa.</p>
   </div>
 
-  <div class="result-banner" id="cotidianoResult" style="background:linear-gradient(135deg,#10b981,#059669)">
+  <div class="result-banner" id="cotidianoResult" style="background:linear-gradient(135deg,var(--primary),var(--secondary))">
     <div class="result-icon" id="cotResultIcon">🏆</div>
     <h3 id="cotResultTitle"></h3>
     <p id="cotResultDesc"></p>
-    <button class="btn-retry" style="color:#10b981" onclick="resetarCotidiano()">Tentar novamente</button>
+    <button class="btn-retry" onclick="resetarCotidiano()">Tentar novamente</button>
   </div>
 
   <div class="cenarios-list" id="cenariosContainer"></div>
@@ -356,7 +424,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 <section id="quiz">
   <div class="quiz-wrap">
     <div class="section-header">
-      <span class="section-badge" style="background:#fffbeb;color:#f59e0b">AVALIAÇÃO</span>
+      <span class="section-badge" style="background:#7c2d12;color:#ffedd5">AVALIAÇÃO</span>
       <h2 class="section-title">Quiz de Ética</h2>
     </div>
 
@@ -393,7 +461,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 <!-- DIGITAL -->
 <section id="digital">
   <div class="section-header">
-    <span class="section-badge" style="background:#f0fdf4;color:#16a34a">AMBIENTE ONLINE</span>
+    <span class="section-badge" style="background:#1e1b4b;color:#e0e7ff">AMBIENTE ONLINE</span>
     <h2 class="section-title">Ética Digital</h2>
     <p class="section-sub">Como se comportar de forma justa nas redes sociais?</p>
   </div>
@@ -413,7 +481,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 <!-- GLOSSÁRIO -->
 <section id="glossario">
   <div class="section-header">
-    <span class="section-badge" style="background:#fff7ed;color:#ea580c">DICIONÁRIO</span>
+    <span class="section-badge" style="background:#312e81;color:#e0e7ff">DICIONÁRIO</span>
     <h2 class="section-title">Glossário de Ética</h2>
     <p class="section-sub">Termos fundamentais que você precisa dominar.</p>
   </div>
@@ -427,7 +495,7 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <span style="font-size:44px;display:block;margin-bottom:16px;" class="float-anim">🌟</span>
+    <span style="font-size:44px;display:block;margin-bottom:16px;" class="float-anim">🕷️</span>
     <h2>A ética começa em você!</h2>
     <p>Praticar o bem está nas pequenas escolhas diárias: nas conversas virtuais, no pátio do recreio e em família.</p>
     <div class="footer-cards">
@@ -436,27 +504,42 @@ footer p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:32px}
       <div class="footer-card"><div class="fc-icon">❤️</div><p>Empatia</p></div>
       <div class="footer-card"><div class="fc-icon">⚖️</div><p>Justiça</p></div>
     </div>
+    
+    <!-- SEÇÃO DOS INTEGRANTES PERSONALIZADA -->
+    <div class="integrantes-container">
+      <div class="integrante-box">
+        <img class="char-image float-anim" src="https://images.unsplash.com/photo-1604200213928-ba3cf4fc8436?w=400&q=80" alt="Homem-Aranha Clássico">
+        <h4>Responsável pela Programação</h4>
+        <p>LUCAS</p>
+      </div>
+      <div class="integrante-box">
+        <img class="char-image float-anim" style="animation-delay: 0.5s;" src="https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&q=80" alt="Outro tipo de Homem-Aranha">
+        <h4>Responsável pela Pesquisa</h4>
+        <p>HENRIQUE</p>
+      </div>
+    </div>
+
     <div class="footer-hr"><p>📚 Trabalho Escolar de Ética — 6º Ano</p></div>
   </div>
 </footer>
 
 <script>
 // ═══════════════════════════════════════════════════════
-// ARRAYS DE DADOS (SEU SCRIPT EXCELENTE CONSERVADO)
+// ARRAYS DE DADOS
 // ═══════════════════════════════════════════════════════
 const valores = [
-  {emoji:"🤝",nome:"Respeito",cor:"#4f46e5",bg:"#eef2ff",desc:"Valorizar os direitos e as diferenças de cada pessoa, aceitando sua identidade e opinião.",exemplo:"Ouvir o ponto de vista de um colega sem deboches, mesmo que discorde.",dica:"Pense: 'Eu gostaria que fizessem o mesmo comigo agora?'"},
-  {emoji:"💎",nome:"Honestidade",cor:"#0ea5e9",bg:"#e0f2fe",desc:"Agir com integridade e transparência completa, mesmo quando não há ninguém vigiando.",exemplo:"Avisar a professora caso note que ela deu nota a mais sem querer na sua prova.",dica:"A mentira pode parecer um atalho, mas a verdade gera a confiança dos amigos."},
-  {emoji:"❤️",nome:"Empatia",cor:"#ec4899",bg:"#fdf2f8",desc:"A valiosa habilidade de se colocar no lugar da outra pessoa para compreender sua dor ou situação.",exemplo:"Confortar e incluir um aluno novo que está isolado no recreio.",dica:"Antes de julgar as falhas alheias, tente calçar os sapatos daquela pessoa."},
-  {emoji:"⚖️",nome:"Justiça",cor:"#f59e0b",bg:"#fffbeb",desc:"Tratar as pessoas com igualdade e assegurar os direitos legítimos de cada indivíduo.",exemplo:"Divisões justas de tarefas e tempo de fala em atividades de grupo.",dica:"Ser justo não é dar exatamente o mesmo a todos, mas dar a cada um o que ele precisa."},
-  {emoji:"🌱",nome:"Responsabilidade",cor:"#10b981",bg:"#ecfdf5",desc:"Assumir os deveres escolares e arcar com as consequências de suas decisões.",exemplo:"Admitir um erro imediatamente em vez de culpar os demais.",dica:"Erros acontecem. Corrigi-los e assumi-los é o que gera o crescimento pessoal."},
-  {emoji:"🤲",nome:"Solidariedade",cor:"#8b5cf6",bg:"#f5f3ff",desc:"Apoiar voluntariamente o próximo focado no bem comum da comunidade.",exemplo:"Ajudar voluntariamente um colega que está com dificuldades em uma matéria.",dica:"Unidos conseguimos alcançar mudanças que seriam impossíveis agindo individualmente."}
+  {emoji:"🤝",nome:"Respeito",cor:"#dc2626",bg:"#7f1d1d",desc:"Valorizar os direitos e as diferenças de cada pessoa, aceitando sua identidade e opinião.",exemplo:"Ouvir o ponto de vista de um colega sem deboches, mesmo que discorde.",dica:"Pense: 'Eu gostaria que fizessem o mesmo comigo agora?'"},
+  {emoji:"💎",nome:"Honestidade",cor:"#0ea5e9",bg:"#1e3a8a",desc:"Agir com integridade e transparência completa, mesmo quando não há ninguém vigiando.",exemplo:"Avisar a professora caso note que ela deu nota a mais sem querer na sua prova.",dica:"A mentira pode parecer um atalho, mas a verdade gera a confiança dos amigos."},
+  {emoji:"❤️",nome:"Empatia",cor:"#ec4899",bg:"#581c87",desc:"A valiosa habilidade de se colocar no lugar da outra pessoa para compreender sua dor ou situação.",exemplo:"Confortar e incluir um aluno novo que está isolado no recreio.",dica:"Antes de julgar as falhas alheias, tente calçar os sapatos daquela pessoa."},
+  {emoji:"⚖️",nome:"Justiça",cor:"#f59e0b",bg:"#7c2d12",desc:"Tratar as pessoas com igualdade e assegurar os direitos legítimos de cada indivíduo.",exemplo:"Divisões justas de tarefas e tempo de fala em atividades de grupo.",dica:"Ser justo não é dar exatamente o mesmo a todos, mas dar a cada um o que ele precisa."},
+  {emoji:"🌱",nome:"Responsabilidade",cor:"#10b981",bg:"#064e3b",desc:"Assumir os deveres escolares e arcar com as consequências de suas decisões.",exemplo:"Admitir um erro imediatamente em vez de culpar os demais.",dica:"Erros acontecem. Corrigi-los e assumi-los é o que gera o crescimento pessoal."},
+  {emoji:"🤲",nome:"Solidariedade",cor:"#8b5cf6",bg:"#4c1d95",desc:"Apoiar voluntariamente o próximo focado no bem comum da comunidade.",exemplo:"Ajudar voluntariamente um colega que está com dificuldades em uma matéria.",dica:"Unidos conseguimos alcançar mudanças que seriam impossíveis agindo individualmente."}
 ];
 
 const cenarios = [
   {titulo:"Na cantina",icone:"🍕",situacao:"A fila está gigantesca. Um colega de classe se aproxima e pede para entrar na sua frente alegando pressa.",opcoes:[{texto:"Deixar ele furar porque é seu amigo de longa data",etica:false,feedback:"Mesmo sendo amigos, burlar regras prejudica todos que esperavam antes. A ética não abre exceções individuais."},{texto:"Explicar que não é justo com os demais e orientá-lo a ir para o fim",etica:true,feedback:"Sensacional! Preservar as normas coletivas, mesmo diante de conhecidos, é o pilar da integridade."},{texto:"Fingir que não ouviu para evitar qualquer tipo de discussão",etica:false,feedback:"A omissão passiva permite que a injustiça ocorra. Agir eticamente requer atitude ativa."}]},
   {titulo:"Nas redes sociais",icone:"📱",situacao:"Você recebe um meme ofensivo zombando da aparência de um aluno da sala. Muitos amigos estão rindo.",opcoes:[{texto:"Compartilhar nos grupos, afinal não foi você que criou",etica:false,feedback:"Disseminar ofensas espalha e aumenta o sofrimento alheio. Repassar mentiras ou deboches é compactuar com bullying."},{texto:"Apenas apagar a mensagem e não responder nada",etica:false,feedback:"É melhor do que repassar, mas a vítima continua desprotegida. Se notar algo grave, denuncie."},{texto:"Não repassar e prestar apoio acolhedor ao colega difamado",etica:true,feedback:"Atitude brilhante! Combater o bullying virtual com empatia e apoio quebra ciclos de ódio."}]},
-  {titulo:"Na sala de aula",icone:"📚",situacao:"Você nota que um colega de equipe pegou seu parágrafo autoral e assinou como se ele mesmo tivesse escrito.",opcoes:[{texto:"Ficar bravo e iniciar uma discussão em voz alta em plena sala",etica:false,feedback:"Conflitos agressivos destroem o diálogo. A ética sugere diplomacia e inteligência emocional."},{texto:"Conversar calmamente em particular para resolver o erro e ajustar as assinaturas",etica:true,feedback:"Perfeito! O diálogo centrado dá a chance do colega se retratar de forma digna e justa."},{texto:"Ficar em silêncio mas guardar rancor dele pelo resto do ano",etica:false,feedback:"Guardar o problema não traz soluções práticas e perpetua um ambiente escolar ruim."}]}
+  {titulo:"Na sala de aula",icone:"📚",situacao:"Você nota que um colega de equipe pegou seu parágrafo autoral e assinou como se ele mesmo tivesse escrito.",opcoes:[{texto:"Ficar bravo e iniciar uma discussão em voz alta em plena sala",etica:false,feedback:"Conflitos agressivos destroem o diálogo. A ética sugere diplomacia e inteligência emocional."},{texto:"Conversar calmamente em particular para resolver o erro e ajustar as assinaturas",etica:true,feedback:"Perfeito! O diálogo centrado dá a chance do colega se retratar de forma digna e justa."},{texto:"Fingir em silêncio mas guardar rancor dele pelo resto do ano",etica:false,feedback:"Guardar o problema não traz soluções práticas e perpetua um ambiente escolar ruim."}]}
 ];
 
 const quizPerguntas = [
@@ -487,7 +570,7 @@ const glossario = [
 ];
 
 // ═══════════════════════════════════════════════════════
-// LOGICA DE SCRIPT ENXUTA E REFINADA
+// LOGICA DE SCRIPT
 // ═══════════════════════════════════════════════════════
 const navLinks = document.querySelectorAll('nav a');
 const sections = document.querySelectorAll('section[id], #inicio-wrapper');
@@ -511,7 +594,7 @@ document.querySelectorAll('.info-card').forEach(card => {
   });
 });
 
-// VALORES REESTRUTURADOS SEM QUEBRA DE LAYOUT
+// VALORES REESTRUTURADOS
 const valGrid = document.getElementById('valoresGrid');
 function renderValores() {
   valGrid.innerHTML = '';
@@ -689,7 +772,839 @@ function reiniciarQuiz() {
 
 function spawnConfetti() {
   const container = document.getElementById('confettiContainer');
-  const colors = ['#4f46e5','#ec4899','#f59e0b','#10b981'];
+  const colors = ['#dc2626','#1d4ed8','#f59e0b','#10b981'];
+  for (let i = 0; i < 6; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = `${20 + i*15}%`;
+    piece.style.background = colors[i % colors.length];
+    container.appendChild(piece);
+  }
+}
+renderQuiz();
+
+// ABAS DIGITAL
+let abaAtiva = 0;
+function renderAbas() {
+  document.getElementById('abasContainer').innerHTML = abas.map((a,i) =>
+    `<button class="aba-btn ${i===abaAtiva?'active':''}" onclick="mudarAba(${i})">${a.icone} ${a.titulo}</button>`
+  ).join('');
+  const ab = abas[abaAtiva];
+  document.getElementById('abaContent').innerHTML = `
+    <p>${ab.texto}</p>
+    <div class="aba-pontos">${ab.pontos.map(p=>`<div class="aba-ponto"><span class="arrow">→</span><span>${p}</span></div>`).join('')}</div>`;
+}
+function mudarAba(i) { abaAtiva = i; renderAbas(); }
+renderAbas();
+
+// GLOSSÁRIO
+let glossAberto = -1;
+function renderGlossario(filtro='') {
+  const filtered = glossario.filter(g => g.termo.toLowerCase().includes(filtro.toLowerCase()));
+  const list = document.getElementById('glossList');
+  if (filtered.length === 0) {
+    list.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:24px">Nenhum termo mapeado.</p>';
+    return;
+  }
+  list.innerHTML = filtered.map((item, i) => {
+    const ri = glossario.indexOf(item);
+    return `
+    <div class="gloss-item ${glossAberto===ri?'open':''}" onclick="toggleGloss(${ri})">
+      <div class="gloss-head">
+        <div class="gloss-head-left">
+          <div class="gloss-abbr">${item.termo.slice(0,2)}</div>
+          <h4>${item.termo}</h4>
+        </div>
+        <span class="gloss-arrow">▾</span>
+      </div>
+      <div class="gloss-body"><p>${item.def}</p></div>
+    </div>`;
+  }).join('');
+}
+function toggleGloss(i) {
+  glossAberto = glossAberto === i ? -1 : i;
+  renderGlossario(document.querySelector('.busca-input').value);
+}
+function filtrarGlossario(v) { renderGlossario(v); }
+renderGlossario();
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ética — 6º Ano</title>
+<style>
+/* ── CONFIGURAÇÕES GERAIS E VARIÁVEIS (TEMA HOMEM-ARANHA) ── */
+:root {
+  --primary: #dc2626; /* Vermelho Aranha */
+  --primary-hover: #b91c1c;
+  --secondary: #1d4ed8; /* Azul Teia */
+  --accent: #f59e0b; /* Amarelo de Destaque */
+  --background: #0f172a; /* Fundo Escuro Confortável */
+  --surface: #1e293b; /* Superfície dos Cards */
+  --text-main: #f8fafc; /* Texto Claro */
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -2px rgba(0,0,0,0.3);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--background);color:var(--text-main);line-height:1.6;position:relative}
+
+/* ── TEIAS DECORATIVAS NOS CANTOS DA TELA ── */
+body::before, body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
+}
+body::before {
+  left: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,0 L100,0 C80,20 20,80 0,100 Z" fill="none" stroke="white" stroke-width="1"/><path d="M0,0 Q50,20 100,0 M0,0 Q20,50 0,100 M0,0 Q40,40 50,50 M0,0 Q30,30 70,70" fill="none" stroke="white" stroke-width="0.5" stroke-dasharray="2,2"/><path d="M20,0 Q20,20 0,20 M40,0 Q40,40 0,40 M60,0 Q60,60 0,60 M80,0 Q80,80 0,80" fill="none" stroke="white" stroke-width="0.5"/></svg>');
+}
+body::after {
+  right: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M100,0 L0,0 C20,20 80,80 100,100 Z" fill="none" stroke="white" stroke-width="1"/><path d="M100,0 Q50,20 0,0 M100,0 Q80,50 100,100 M100,0 Q60,40 50,50 M100,0 Q70,30 30,70" fill="none" stroke="white" stroke-width="0.5" stroke-dasharray="2,2"/><path d="M80,0 Q80,20 100,20 M60,0 Q60,40 100,40 M40,0 Q40,60 100,60 M20,0 Q20,80 100,80" fill="none" stroke="white" stroke-width="0.5"/></svg>');
+}
+
+/* ── SCROLLBAR CORRIGIDA ── */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--background)}
+::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--primary)}
+
+/* ── ANIMAÇÕES REFINADAS ── */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounceIn{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100px) rotate(360deg);opacity:0}}
+
+.fade-up{animation:fadeUp .4s cubic-bezier(0.16, 1, 0.3, 1) forwards}
+.float-anim{animation:float 4s ease-in-out infinite}
+.bounce-in{animation:bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards}
+.hidden{display:none!important}
+.confetti-piece{position:absolute;width:8px;height:8px;border-radius:50%;animation:confettiFall 1s linear forwards;pointer-events:none}
+
+/* ── NAVBAR MODERNA (EFEITO GLASS ARANHA) ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(30,41,59,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--primary);padding:0 24px;display:flex;align-items:center;gap:8px;overflow-x:auto;box-shadow:var(--shadow-sm)}
+nav .logo{font-size:24px;padding:12px 0;margin-right:12px;flex-shrink:0}
+nav a{text-decoration:none;padding:16px 12px;font-size:14px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s ease}
+nav a.active,nav a:hover{color:var(--primary);border-bottom-color:var(--primary)}
+
+/* ── SECTIONS GENERAL ── */
+section{padding:80px 24px;max-width:1000px;margin:0 auto}
+.section-badge{display:inline-block;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.section-title{font-size:clamp(28px,5vw,38px);font-weight:800;margin-top:12px;color:var(--text-main);letter-spacing:-0.5px}
+.section-sub{color:var(--text-muted);font-size:16px;margin-top:8px}
+.section-header{text-align:center;margin-bottom:48px}
+
+/* ── HERO ARANHA PREMIUM ── */
+#inicio-wrapper{background:linear-gradient(135deg,#b91c1c 0%,#1e3a8a 100%);position:relative;overflow:hidden;border-bottom:4px solid var(--primary)}
+#inicio{background:transparent;text-align:center;padding:100px 24px}
+.hero-circle{position:absolute;border-radius:50%;background:rgba(255,255,255,.04);animation:float 4s ease-in-out infinite}
+.hero-inner{position:relative;z-index:2;max-width:650px;margin:0 auto}
+.hero-icon{font-size:72px;margin-bottom:12px;display:block}
+.hero-title{font-size:clamp(40px,7vw,56px);font-weight:900;color:#fff;margin-bottom:16px;letter-spacing:-1px;text-shadow: 2px 2px 4px rgba(0,0,0,0.6)}
+.hero-desc{font-size:clamp(16px,2.5vw,18px);color:rgba(255,255,255,.95);margin-bottom:32px;line-height:1.6}
+.hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.hero-badge{background:rgba(0,0,0,.4);border:1px solid var(--primary);border-radius:999px;padding:6px 14px;color:#fff;font-size:13px;font-weight:600}
+.btn-hero{display:inline-block;background:var(--primary);color:#fff;padding:14px 32px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:var(--shadow-md);transition:all .2s ease;border:2px solid #fff}
+.btn-hero:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);background:var(--secondary)}
+
+/* ── O QUE É ── */
+#oque-e{background:var(--surface);border-bottom:1px solid var(--border)}
+.regra-ouro{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:var(--radius-lg);padding:32px;margin-bottom:40px;display:flex;align-items:center;gap:24px;color:#fff;box-shadow:var(--shadow-md);border:1px solid rgba(255,255,255,0.1)}
+.regra-ouro-text>p:first-child{color:rgba(255,255,255,.85);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.regra-ouro-text>p:nth-child(2){font-size:clamp(18px,3vw,24px);font-weight:800;line-height:1.3;margin-bottom:4px}
+.regra-ouro-text>p:last-child{color:rgba(255,255,255,.9);font-size:14px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.info-card{background:var(--background);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;transition:all .25s ease;cursor:pointer}
+.info-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--primary)}
+.info-card.open{background:var(--surface);border-color:var(--secondary);box-shadow:var(--shadow-md)}
+.info-card .card-icon{font-size:32px;margin-bottom:8px}
+.info-card h3{font-weight:700;font-size:16px;color:var(--text-main);margin-bottom:6px}
+.info-card p{font-size:14px;line-height:1.6;color:var(--text-muted)}
+.filosofo-box{margin-top:40px;background:var(--background);border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.filosofo-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}
+.filosofo-box .badge{color:var(--primary);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.filosofo-box h3{font-size:20px;font-weight:800;margin-bottom:4px}
+.filosofo-box p{color:var(--text-muted);font-size:14px}
+
+/* ── VALORES ── */
+#valores{background:var(--background);border-bottom:1px solid var(--border)}
+.valores-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.valor-card{border-radius:var(--radius-lg);padding:24px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);transition:all .25s ease}
+.valor-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--primary)}
+.valor-head{display:flex;align-items:center;gap:14px}
+.valor-emoji-wrap{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border:1px solid rgba(255,255,255,0.1)}
+.valor-info h3{font-weight:700;font-size:17px;color:var(--text-main)}
+.valor-info .expand-btn{background:none;border:none;color:var(--primary);font-size:12px;font-weight:600;cursor:pointer;padding:0;margin-top:2px;display:block}
+.valor-body{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);animation:fadeUp .3s ease}
+.valor-body p{color:var(--text-muted);font-size:14px;margin-bottom:12px}
+.valor-box{background:var(--background);border-radius:var(--radius-md);padding:12px;margin-bottom:8px;border-left:3px solid var(--secondary)}
+.valor-box .box-label{color:var(--text-main);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.valor-box p{font-size:13px;color:var(--text-muted);margin:0}
+
+/* ── COTIDIANO ── */
+#cotidiano{background:var(--surface);border-bottom:1px solid var(--border)}
+.result-banner{border-radius:var(--radius-lg);padding:32px;margin-bottom:32px;text-align:center;color:#fff;display:none}
+.result-banner.visible{display:block}
+.result-banner .result-icon{font-size:44px;margin-bottom:8px}
+.result-banner h3{font-size:20px;font-weight:800;margin-bottom:4px}
+.result-banner p{font-size:14px;margin-bottom:16px;opacity:0.9}
+.btn-retry{background:#fff;color:var(--primary)!important;border:none;padding:10px 24px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px;box-shadow:var(--shadow-sm)}
+.cenarios-list{display:flex;flex-direction:column;gap:24px}
+.cenario-card{background:var(--background);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden}
+.cenario-header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:20px 24px;display:flex;align-items:center;gap:14px;color:#fff}
+.cenario-header .cen-icon{font-size:32px}
+.cenario-header small{opacity:0.8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.cenario-header h3{font-weight:800;font-size:18px}
+.cenario-body{padding:24px}
+.situacao-box{background:#1e293b;border-radius:var(--radius-md);padding:16px;border-left:4px solid var(--primary);margin-bottom:20px}
+.situacao-box p{color:#f8fafc;font-size:15px;font-weight:500}
+.opcoes-label{color:var(--text-muted);font-size:12px;font-weight:700;margin-bottom:12px;letter-spacing:0.5px}
+.opcoes-list{display:flex;flex-direction:column;gap:8px}
+.opcao-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:left;cursor:pointer;font-size:14px;color:var(--text-main);font-weight:500;transition:all .2s ease;display:flex;align-items:center;gap:12px;width:100%}
+.opcao-btn .op-icon{font-size:16px;flex-shrink:0;color:#64748b}
+.opcao-btn:hover:not(:disabled){background:var(--border);border-color:var(--primary)}
+.opcao-btn.correct{background:#064e3b;border-color:#10b981;color:#a7f3d0;font-weight:600}
+.opcao-btn.correct .op-icon{color:#10b981}
+.opcao-btn.wrong{background:#7f1d1d;border-color:#ef4444;color:#fca5a5;font-weight:600}
+.opcao-btn.wrong .op-icon{color:#ef4444}
+.opcao-btn.show-correct{background:#064e3b;border-color:#10b981;color:#a7f3d0}
+.opcao-btn.show-correct .op-icon{color:#10b981}
+.feedback-box{margin-top:16px;border-radius:var(--radius-md);padding:16px;border:1px solid transparent;display:none}
+.feedback-box.visible{display:block}
+.feedback-box.good{background:#064e3b;border-color:#047857;color:#a7f3d0}
+.feedback-box.bad{background:#7c2d12;border-color:#c2410c;color:#ffedd5}
+.feedback-box strong{display:block;font-size:14px;margin-bottom:4px}
+.feedback-box p{font-size:13px;line-height:1.6}
+
+/* ── QUIZ REESTRUTURADO ── */
+#quiz{background:var(--background);border-bottom:1px solid var(--border)}
+.quiz-wrap{max-width:680px;margin:0 auto}
+.quiz-final{background:var(--surface);border-radius:var(--radius-lg);padding:40px 24px;text-align:center;box-shadow:var(--shadow-lg);border:1px solid var(--primary)}
+.quiz-final .final-icon{font-size:64px;margin-bottom:12px}
+.quiz-final h3{font-size:26px;font-weight:800;margin-bottom:8px}
+.quiz-final p{color:var(--text-muted);font-size:16px;margin-bottom:24px}
+.quiz-dots{display:flex;justify-content:center;gap:8px;margin-bottom:24px}
+.quiz-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.quiz-dot.ok{background:#10b981}
+.quiz-dot.fail{background:#ef4444}
+.quiz-card{background:var(--surface);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--border)}
+.quiz-head{padding:24px;border-bottom:1px solid var(--border)}
+.quiz-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.quiz-meta span{color:var(--text-muted);font-weight:600;font-size:13px}
+.quiz-pts{background:#1e3a8a;color:#fff;padding:4px 12px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid var(--secondary)}
+.progress-wrap{background:var(--background);border-radius:999px;height:6px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:999px;transition:width .4s ease}
+.quiz-body{padding:24px;position:relative}
+.quiz-question{font-size:18px;font-weight:700;color:var(--text-main);line-height:1.5;margin-bottom:20px}
+.quiz-opts{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{background:var(--background);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:left;cursor:pointer;font-size:14px;color:var(--text-main);font-weight:500;line-height:1.5;transition:all .2s ease;display:flex;align-items:center;gap:12px;width:100%}
+.quiz-opt .opt-letter{width:24px;height:24px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--text-muted);flex-shrink:0}
+.quiz-opt:hover:not(:disabled){background:var(--border);border-color:var(--primary)}
+.quiz-opt:hover:not(:disabled) .opt-letter{background:var(--primary);color:#fff}
+.quiz-opt.correct{background:#064e3b;border-color:#10b981;color:#a7f3d0}
+.quiz-opt.correct .opt-letter{background:#10b981;color:#fff}
+.quiz-opt.wrong{background:#7f1d1d;border-color:#ef4444;color:#fca5a5}
+.quiz-opt.wrong .opt-letter{background:#ef4444;color:#fff}
+.quiz-opt.show-correct{background:#064e3b;border-color:#10b981;color:#a7f3d0}
+.quiz-opt.show-correct .opt-letter{background:#10b981;color:#fff}
+.quiz-feedback{margin-top:16px;border-radius:var(--radius-md);padding:16px;border:1px solid transparent;display:none}
+.quiz-feedback.visible{display:block}
+.quiz-feedback.good{background:#064e3b;border-color:#047857;color:#a7f3d0}
+.quiz-feedback.bad{background:#7c2d12;border-color:#c2410c;color:#ffedd5}
+.quiz-feedback strong{display:block;font-size:14px;margin-bottom:4px}
+.quiz-feedback p{font-size:13px;line-height:1.6}
+.btn-next{margin-top:16px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:12px;border-radius:var(--radius-md);font-weight:700;font-size:14px;cursor:pointer;width:100%;display:none;box-shadow:var(--shadow-sm);border:1px solid #fff}
+.btn-next.visible{display:block}
+.btn-reiniciar{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:12px 32px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:var(--shadow-md);border:1px solid #fff}
+
+/* ── DIGITAL ── */
+#digital{background:var(--surface);border-bottom:1px solid var(--border)}
+.digital-banner{background:linear-gradient(135deg,#1e1b4b,#0f172a);border-radius:var(--radius-lg);padding:32px;margin-bottom:32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:#fff;border:1px solid var(--secondary)}
+.digital-banner h3{font-size:20px;font-weight:800;margin-bottom:4px}
+.digital-banner p{color:rgba(255,255,255,.8);font-size:14px}
+.abas{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.aba-btn{padding:8px 16px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer;border:1px solid var(--border);background:var(--background);color:var(--text-muted);transition:all .2s ease}
+.aba-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+.aba-content{background:var(--background);border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border)}
+.aba-content p{color:var(--text-muted);font-size:15px;margin-bottom:20px}
+.aba-pontos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.aba-ponto{background:var(--surface);border-radius:var(--radius-md);padding:14px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;box-shadow:var(--shadow-sm)}
+.aba-ponto .arrow{color:var(--primary);font-weight:700;font-size:14px}
+.aba-ponto span{color:var(--text-main);font-size:13px;font-weight:500}
+
+/* ── GLOSSARIO INTERATIVO ── */
+#glossario{background:var(--background);border-bottom:1px solid var(--border)}
+.busca-wrap{position:relative;margin-bottom:24px}
+.busca-wrap .busca-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text-muted)}
+.busca-input{width:100%;padding:14px 16px 14px 44px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:15px;background:var(--surface);color:#fff;outline:none;transition:all .2s ease;box-shadow:var(--shadow-sm)}
+.busca-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(220,38,38,0.3)}
+.gloss-list{display:flex;flex-direction:column;gap:10px}
+.gloss-item{background:var(--surface);border-radius:var(--radius-md);border:1px solid var(--border);overflow:hidden;transition:all .2s ease;cursor:pointer;box-shadow:var(--shadow-sm)}
+.gloss-item:hover{border-color:var(--primary)}
+.gloss-item.open{border-color:var(--secondary)}
+.gloss-head{padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.gloss-head-left{display:flex;align-items:center;gap:12px}
+.gloss-abbr{width:36px;height:36px;border-radius:50%;background:var(--background);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--primary);border:1px solid var(--border)}
+.gloss-item.open .gloss-abbr{background:var(--primary);color:#fff;border-color:#fff}
+.gloss-head h4{font-weight:700;font-size:15px;color:var(--text-main)}
+.gloss-arrow{color:var(--text-muted);font-size:16px;transition:transform .2s ease}
+.gloss-item.open .gloss-arrow{transform:rotate(180deg)}
+.gloss-body{padding:0 20px 16px;border-top:1px solid var(--background);display:none}
+.gloss-item.open .gloss-body{display:block}
+.gloss-body p{padding-top:12px;color:var(--text-muted);font-size:14px;line-height:1.6}
+
+/* ── CONCLUSÃO E FOOTER TEMÁTICO COM INTEGRANTES ── */
+footer{background:linear-gradient(135deg,#020617,#1e1b4b);padding:64px 24px 32px;text-align:center;color:#fff;border-top:4px solid var(--secondary)}
+.footer-inner{max-width:650px;margin:0 auto}
+footer h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:12px;letter-spacing:-0.5px;text-shadow: 1px 1px 3px rgba(0,0,0,0.8)}
+footer p{color:rgba(255,255,255,.85);font-size:15px;margin-bottom:32px}
+.footer-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:40px}
+.footer-card{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px 12px}
+.footer-card:hover{border-color:var(--primary)}
+.footer-card .fc-icon{font-size:28px;margin-bottom:6px}
+.footer-card p{color:#fff;font-weight:600;font-size:13px}
+
+/* ── ESTILIZAÇÃO DOS PERSONAGENS DOS INTEGRANTES ── */
+.integrantes-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.integrante-box {
+  background: rgba(30,41,59,0.6);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  width: 240px;
+  transition: all 0.3s ease;
+}
+.integrante-box:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+.char-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid var(--primary);
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.5);
+}
+.integrante-box h4 {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.integrante-box p {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+.footer-hr{border-top:1px solid rgba(255,255,255,.1);padding-top:24px}
+.footer-hr p{color:rgba(255,255,255,.4);font-size:13px;margin:0}
+
+/* ── AJUSTES MOBILE ── */
+@media(max-width:600px){
+  section{padding:56px 16px}
+  .regra-ouro{padding:24px;flex-direction:column;text-align:center}
+  .cenario-body,.quiz-body{padding:16px}
+  .quiz-head{padding:16px}
+  .integrantes-container { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <span class="logo">🕸️</span>
+  <a href="#inicio-wrapper" class="active">Início</a>
+  <a href="#oque-e">O que é?</a>
+  <a href="#valores">Valores</a>
+  <a href="#cotidiano">Cotidiano</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#digital">Digital</a>
+  <a href="#glossario">Glossário</a>
+</nav>
+
+<!-- HERO CONTAINER -->
+<div id="inicio-wrapper">
+  <section id="inicio">
+    <div class="hero-circle" style="width:100px;height:100px;top:10%;left:5%;animation-duration:4s"></div>
+    <div class="hero-circle" style="width:60px;height:60px;top:60%;left:8%;animation-duration:5s"></div>
+    <div class="hero-circle" style="width:80px;height:80px;top:20%;left:80%;animation-duration:4.5s"></div>
+    <div class="hero-inner">
+      <span class="hero-icon float-anim">🕷️</span>
+      <h1 class="hero-title">Ética</h1>
+      <p class="hero-desc">Um guia dinâmico e interativo para aprender sobre atitudes, valores e cidadania no dia a dia.</p>
+      <div class="hero-badges">
+        <span class="hero-badge">📚 6º Ano</span>
+        <span class="hero-badge">✨ Interativo</span>
+        <span class="hero-badge">🎯 Com Quiz</span>
+      </div>
+      <a href="#oque-e" class="btn-hero">Começar a aprender ↓</a>
+    </div>
+  </section>
+</div>
+
+<!-- O QUE É -->
+<section id="oque-e">
+  <div class="section-header">
+    <span class="section-badge" style="background:#7f1d1d;color:#fca5a5">FUNDAMENTOS</span>
+    <h2 class="section-title">O que é Ética?</h2>
+    <p class="section-sub">Antes de tudo, precisamos entender o que significa essa palavra tão importante.</p>
+  </div>
+
+  <div class="regra-ouro">
+    <span style="font-size:48px;flex-shrink:0">🕸️</span>
+    <div class="regra-ouro-text">
+      <p>A Regra de Ouro</p>
+      <p>"Trate os outros como você gostaria de ser tratado."</p>
+      <p>Este é o princípio ético mais universal do mundo — presente em quase todas as culturas.</p>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:var(--text-muted);font-size:13px;margin-bottom:16px">💡 Clique nos cards para ler os conceitos</p>
+  <div class="cards-grid" id="infoCards">
+    <div class="info-card" data-content="Ética é a área da filosofia que estuda o que é certo ou errado, bom ou mau, justo ou injusto. Ela orienta nossas ações e decisões na convivência com outras pessoas.">
+      <div class="card-icon">🤔</div>
+      <h3>Definição</h3>
+      <p>Clique para descobrir →</p>
+    </div>
+    <div class="info-card" data-content="A palavra 'ética' vem do grego 'ethos', que significa 'costume' ou 'caráter'. Filósofos renomados como Aristóteles já debatiam isso há mais de 2.400 anos!">
+      <div class="card-icon">📜</div>
+      <h3>Origem</h3>
+      <p>Clique para descobrir →</p>
+    </div>
+    <div class="info-card" data-content="Sem ética, as regras desabariam. Ela permite vivermos juntos com respeito, justiça e harmonia — na escola, em casa e na rua.">
+      <div class="card-icon">🌐</div>
+      <h3>Importância</h3>
+      <p>Clique para descobrir →</p>
+    </div>
+    <div class="info-card" data-content="Moral são as regras de conduta de um groupo político ou cultural. A Ética vai além: ela reflete e questiona de forma crítica se essas regras são boas e justas de verdade.">
+      <div class="card-icon">⚡</div>
+      <h3>Diferença</h3>
+      <p>Clique para descobrir →</p>
+    </div>
+  </div>
+
+  <div class="filosofo-box">
+    <div class="filosofo-avatar">🏛️</div>
+    <div style="flex:1;min-width:200px">
+      <p class="badge">Filósofo em destaque</p>
+      <h3>Aristóteles (384–322 a.C.)</h3>
+      <p>Considerado o "pai da ética". Ele ensinava que a ética é construída pelo hábito: quanto mais praticamos ações corretas, mais justos nos tornamos no cotidiano.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section id="valores">
+  <div class="section-header">
+    <span class="section-badge" style="background:#1e3a8a;color:#93c5fd">OS PILARES</span>
+    <h2 class="section-title">Valores Éticos Fundamentais</h2>
+    <p class="section-sub">Abra os cards abaixo para explorar exemplos e dicas práticas.</p>
+  </div>
+  <div class="valores-grid" id="valoresGrid"></div>
+</section>
+
+<!-- COTIDIANO -->
+<section id="cotidiano">
+  <div class="section-header">
+    <span class="section-badge" style="background:#064e3b;color:#a7f3d0">PRÁTICA</span>
+    <h2 class="section-title">Ética no Cotidiano</h2>
+    <p class="section-sub">Analise cada dilema e tome a decisão mais justa.</p>
+  </div>
+
+  <div class="result-banner" id="cotidianoResult" style="background:linear-gradient(135deg,var(--primary),var(--secondary))">
+    <div class="result-icon" id="cotResultIcon">🏆</div>
+    <h3 id="cotResultTitle"></h3>
+    <p id="cotResultDesc"></p>
+    <button class="btn-retry" onclick="resetarCotidiano()">Tentar novamente</button>
+  </div>
+
+  <div class="cenarios-list" id="cenariosContainer"></div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="quiz-wrap">
+    <div class="section-header">
+      <span class="section-badge" style="background:#7c2d12;color:#ffedd5">AVALIAÇÃO</span>
+      <h2 class="section-title">Quiz de Ética</h2>
+    </div>
+
+    <div class="quiz-final hidden bounce-in" id="quizFinal">
+      <div class="final-icon" id="quizMedalha">🥇</div>
+      <h3 id="quizPontosText"></h3>
+      <p id="quizMensagem"></p>
+      <div class="quiz-dots" id="quizDots"></div>
+      <button class="btn-reiniciar" onclick="reiniciarQuiz()">Refazer Quiz 🔄</button>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-head">
+        <div class="quiz-meta">
+          <span id="quizNumero">Pergunta 1 de 6</span>
+          <span class="quiz-pts" id="quizPts">🎯 0 pts</span>
+        </div>
+        <div class="progress-wrap"><div class="progress-bar" id="quizProgress" style="width:0%"></div></div>
+      </div>
+      <div class="quiz-body">
+        <div id="confettiContainer" style="position:absolute;top:0;left:0;width:100%;pointer-events:none;overflow:hidden;height:100px"></div>
+        <p class="quiz-question" id="quizPergunta"></p>
+        <div class="quiz-opts" id="quizOpts"></div>
+        <div class="quiz-feedback" id="quizFeedback">
+          <strong id="quizFeedbackTitle"></strong>
+          <p id="quizFeedbackText"></p>
+        </div>
+        <button class="btn-next" id="btnNext" onclick="proximaPergunta()">Próxima pergunta →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIGITAL -->
+<section id="digital">
+  <div class="section-header">
+    <span class="section-badge" style="background:#1e1b4b;color:#e0e7ff">AMBIENTE ONLINE</span>
+    <h2 class="section-title">Ética Digital</h2>
+    <p class="section-sub">Como se comportar de forma justa nas redes sociais?</p>
+  </div>
+
+  <div class="digital-banner">
+    <span style="font-size:44px">🌐</span>
+    <div>
+      <h3>O mundo digital também é real</h3>
+      <p>Por trás de cada tela há uma pessoa com sentimentos reais. Comentários e posts têm impacto direto na vida de quem os lê.</p>
+    </div>
+  </div>
+
+  <div class="abas" id="abasContainer"></div>
+  <div class="aba-content" id="abaContent"></div>
+</section>
+
+<!-- GLOSSÁRIO -->
+<section id="glossario">
+  <div class="section-header">
+    <span class="section-badge" style="background:#312e81;color:#e0e7ff">DICIONÁRIO</span>
+    <h2 class="section-title">Glossário de Ética</h2>
+    <p class="section-sub">Termos fundamentais que você precisa dominar.</p>
+  </div>
+  <div class="busca-wrap">
+    <span class="busca-icon">🔍</span>
+    <input class="busca-input" type="text" placeholder="Procurar palavra..." oninput="filtrarGlossario(this.value)" />
+  </div>
+  <div class="gloss-list" id="glossList"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span style="font-size:44px;display:block;margin-bottom:16px;" class="float-anim">🕷️</span>
+    <h2>A ética começa em você!</h2>
+    <p>Praticar o bem está nas pequenas escolhas diárias: nas conversas virtuais, no pátio do recreio e em família.</p>
+    <div class="footer-cards">
+      <div class="footer-card"><div class="fc-icon">🤝</div><p>Respeito</p></div>
+      <div class="footer-card"><div class="fc-icon">💬</div><p>Honestidade</p></div>
+      <div class="footer-card"><div class="fc-icon">❤️</div><p>Empatia</p></div>
+      <div class="footer-card"><div class="fc-icon">⚖️</div><p>Justiça</p></div>
+    </div>
+    
+    <!-- SEÇÃO DOS INTEGRANTES PERSONALIZADA -->
+    <div class="integrantes-container">
+      <div class="integrante-box">
+        <img class="char-image float-anim" src="https://images.unsplash.com/photo-1604200213928-ba3cf4fc8436?w=400&q=80" alt="Homem-Aranha Clássico">
+        <h4>Responsável pela Programação</h4>
+        <p>LUCAS</p>
+      </div>
+      <div class="integrante-box">
+        <img class="char-image float-anim" style="animation-delay: 0.5s;" src="https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&q=80" alt="Outro tipo de Homem-Aranha">
+        <h4>Responsável pela Pesquisa</h4>
+        <p>HENRIQUE</p>
+      </div>
+    </div>
+
+    <div class="footer-hr"><p>📚 Trabalho Escolar de Ética — 6º Ano</p></div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// ARRAYS DE DADOS
+// ═══════════════════════════════════════════════════════
+const valores = [
+  {emoji:"🤝",nome:"Respeito",cor:"#dc2626",bg:"#7f1d1d",desc:"Valorizar os direitos e as diferenças de cada pessoa, aceitando sua identidade e opinião.",exemplo:"Ouvir o ponto de vista de um colega sem deboches, mesmo que discorde.",dica:"Pense: 'Eu gostaria que fizessem o mesmo comigo agora?'"},
+  {emoji:"💎",nome:"Honestidade",cor:"#0ea5e9",bg:"#1e3a8a",desc:"Agir com integridade e transparência completa, mesmo quando não há ninguém vigiando.",exemplo:"Avisar a professora caso note que ela deu nota a mais sem querer na sua prova.",dica:"A mentira pode parecer um atalho, mas a verdade gera a confiança dos amigos."},
+  {emoji:"❤️",nome:"Empatia",cor:"#ec4899",bg:"#581c87",desc:"A valiosa habilidade de se colocar no lugar da outra pessoa para compreender sua dor ou situação.",exemplo:"Confortar e incluir um aluno novo que está isolado no recreio.",dica:"Antes de julgar as falhas alheias, tente calçar os sapatos daquela pessoa."},
+  {emoji:"⚖️",nome:"Justiça",cor:"#f59e0b",bg:"#7c2d12",desc:"Tratar as pessoas com igualdade e assegurar os direitos legítimos de cada indivíduo.",exemplo:"Divisões justas de tarefas e tempo de fala em atividades de grupo.",dica:"Ser justo não é dar exatamente o mesmo a todos, mas dar a cada um o que ele precisa."},
+  {emoji:"🌱",nome:"Responsabilidade",cor:"#10b981",bg:"#064e3b",desc:"Assumir os deveres escolares e arcar com as consequências de suas decisões.",exemplo:"Admitir um erro imediatamente em vez de culpar os demais.",dica:"Erros acontecem. Corrigi-los e assumi-los é o que gera o crescimento pessoal."},
+  {emoji:"🤲",nome:"Solidariedade",cor:"#8b5cf6",bg:"#4c1d95",desc:"Apoiar voluntariamente o próximo focado no bem comum da comunidade.",exemplo:"Ajudar voluntariamente um colega que está com dificuldades em uma matéria.",dica:"Unidos conseguimos alcançar mudanças que seriam impossíveis agindo individualmente."}
+];
+
+const cenarios = [
+  {titulo:"Na cantina",icone:"🍕",situacao:"A fila está gigantesca. Um colega de classe se aproxima e pede para entrar na sua frente alegando pressa.",opcoes:[{texto:"Deixar ele furar porque é seu amigo de longa data",etica:false,feedback:"Mesmo sendo amigos, burlar regras prejudica todos que esperavam antes. A ética não abre exceções individuais."},{texto:"Explicar que não é justo com os demais e orientá-lo a ir para o fim",etica:true,feedback:"Sensacional! Preservar as normas coletivas, mesmo diante de conhecidos, é o pilar da integridade."},{texto:"Fingir que não ouviu para evitar qualquer tipo de discussão",etica:false,feedback:"A omissão passiva permite que a injustiça ocorra. Agir eticamente requer atitude ativa."}]},
+  {titulo:"Nas redes sociais",icone:"📱",situacao:"Você recebe um meme ofensivo zombando da aparência de um aluno da sala. Muitos amigos estão rindo.",opcoes:[{texto:"Compartilhar nos grupos, afinal não foi você que criou",etica:false,feedback:"Disseminar ofensas espalha e aumenta o sofrimento alheio. Repassar mentiras ou deboches é compactuar com bullying."},{texto:"Apenas apagar a mensagem e não responder nada",etica:false,feedback:"É melhor do que repassar, mas a vítima continua desprotegida. Se notar algo grave, denuncie."},{texto:"Não repassar e prestar apoio acolhedor ao colega difamado",etica:true,feedback:"Atitude brilhante! Combater o bullying virtual com empatia e apoio quebra ciclos de ódio."}]},
+  {titulo:"Na sala de aula",icone:"📚",situacao:"Você nota que um colega de equipe pegou seu parágrafo autoral e assinou como se ele mesmo tivesse escrito.",opcoes:[{texto:"Ficar bravo e iniciar uma discussão em voz alta em plena sala",etica:false,feedback:"Conflitos agressivos destroem o diálogo. A ética sugere diplomacia e inteligência emocional."},{texto:"Conversar calmamente em particular para resolver o erro e ajustar as assinaturas",etica:true,feedback:"Perfeito! O diálogo centrado dá a chance do colega se retratar de forma digna e justa."},{texto:"Fingir em silêncio mas guardar rancor dele pelo resto do ano",etica:false,feedback:"Guardar o problema não traz soluções práticas e perpetua um ambiente escolar ruim."}]}
+];
+
+const quizPerguntas = [
+  {pergunta:"João achou o estojo de um colega perdido no pátio. Qual o comportamento ético esperado?",opcoes:["Ficar com o estojo pois o dono foi descuidado.","Entregar na secretaria ou devolver direto ao colega.","Deixar jogado onde achou sem mexer.","Esconder para ver se o dono procura."],correta:1,explicacao:"Honestidade significa zelar pelo patrimônio alheio e devolver o que não nos pertence."},
+  {pergunta:"Ana nota que um colega sempre fica sozinho nos projetos em grupo. Como aplicar a empatia?",opcoes:["Ignorar, cada um deve escolher seu grupo.","Zombar dele por não ter amigos.","Convidá-lo para integrar o grupo dela e acolhê-lo.","Esperar que o professor resolva sozinho."],correta:2,explicacao:"Acolher quem está em desvantagem ou isolado demonstra empatia e inclusão prática."},
+  {pergunta:"Por que colar na prova da escola fere os princípios éticos?",opcoes:["Porque o professor pode confiscar a folha.","Porque gera punição em casa.","Porque sabota o próprio aprendizado e é injusto com quem estudou sério.","Porque o colega ao lado pode colar também."],correta:2,explicacao:"Colar frauda a avaliação e desrespeita o esforço daqueles que se dedicaram aos estudos."},
+  {pergunta:"Qual a premissa central da famosa 'Regra de Ouro' da ética?",opcoes:["Adquirir bens valiosos a qualquer custo.","Tratar o próximo da exata forma que deseja ser tratado.","Apenas cumprir leis para evitar multas.","Agir bem somente quando houver câmeras vigiando."],correta:1,explicacao:"Essa regra milenar propõe a empatia mútua: o que não quero para mim, não faço aos outros."},
+  {pergunta:"Qual a conduta ética digital ao se deparar com um boato agressivo na internet?",opcoes:["Curtir e marcar amigos para aumentar o engajamento.","Ignorar achando que o virtual não fere o mundo real.","Denunciar a postagem falsa, não repassar e alertar um responsável.","Inventar outra mentira para rebater."],correta:2,explicacao:"A violência online gera traumas reais. Denunciar e cortar o ciclo protege a comunidade digital."},
+  {pergunta:"Maria assumiu um compromisso na equipe mas está com preguiça de fazer. O que rege a responsabilidade?",opcoes:["Mentir que ficou doente para escapar do trabalho.","Deixar que os outros membros façam a parte dela.","Cumprir o combinado entregando sua parte com capricho.","Abandonar o grupo sem dar justificativas."],correta:2,explicacao:"Responsabilidade envolve manter compromissos firmados e respeitar o tempo investido pelo grupo."}
+];
+
+const abas = [
+  {titulo:"Conceito",icone:"📱",texto:"A ética digital adapta nossos valores humanos fundamentais para as telas. Redes sociais, jogos e fóruns exigem respeito mútuo idêntico ao exigido presencialmente.",pontos:["Sua pegada digital dura anos online","Atrás das telas existem humanos reais","Privacidade alheia é sagrada","Postagens definem seu caráter digital"]},
+  {titulo:"Cyberbullying",icone:"🛡️",texto:"Intimidar ou humilhar sistematicamente indivíduos online configura cyberbullying. É crime e agride profundamente a saúde mental da pessoa exposta.",pontos:["Não curta postagens difamatórias","Use ferramentas nativas de denúncia","Dê suporte emocional ao alvo","Avise coordenadores ou responsáveis"]},
+  {titulo:"Cidadania",icone:"✅",texto:"Garantir interações saudáveis na web eleva a internet a um espaço de troca cultural rico, pacífico e construtivo.",pontos:["Peça autorização antes de postar fotos de terceiros","Mantenha críticas estritamente educadas","Proteja dados críticos e senhas","Promova conteúdos inspiradores"]},
+  {titulo:"Fake News",icone:"🔍",texto:"Espalhar desinformação destrói reputações, gera pânico coletivo e sabota discussões sociais importantes.",pontos:["Leia a matéria completa, não só o título","Cruze dados em veículos de mídia conhecidos","Duvide de chamadas apelativas ou alarmistas","Use agências oficiais de checagem"]}
+];
+
+const glossario = [
+  {termo:"Ética",def:"Estudo filosófico voltado a analisar criticamente as regras de conduta humana, definindo o que é bem comum, justo e virtuoso."},
+  {termo:"Moral",def:"Normas práticas de comportamento ditadas por tradições, religiões ou culturas específicas em determinada época."},
+  {termo:"Valor",def:"Convicção íntima ou social que dita prioridades de escolhas cotidianas (Ex: Verdade, Liberdade, Respeito)."},
+  {termo:"Dilema ético",def:"Cenário complexo onde múltiplos valores éticos válidos entram em rota de colisão, exigindo profunda reflexão racional."},
+  {termo:"Cidadania",def:"Equilíbrio dinâmico entre usufruir de direitos civis e cumprir rigorosamente deveres sociais com a pátria e o próximo."},
+  {termo:"Bullying",def:"Agressões contínuas intencionais físicas ou psicológicas exercidas contra indivíduos indefesos em ambientes comunitários."},
+  {termo:"Autonomia",def:"Poder interno de governar a própria vida assentado em convicções morais conscientes, sem manipulações externas."},
+  {termo:"Tolerância",def:"Respeito convicto à pluralidade humana, aceitando orientações, pensamentos e fés divergentes das suas."}
+];
+
+// ═══════════════════════════════════════════════════════
+// LOGICA DE SCRIPT
+// ═══════════════════════════════════════════════════════
+const navLinks = document.querySelectorAll('nav a');
+const sections = document.querySelectorAll('section[id], #inicio-wrapper');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+    }
+  });
+}, {threshold: 0.2});
+sections.forEach(s => observer.observe(s));
+
+// INFO CARDS
+document.querySelectorAll('.info-card').forEach(card => {
+  const content = card.dataset.content;
+  card.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    card.classList.toggle('open');
+    card.querySelector('p').textContent = isOpen ? 'Clique para descobrir →' : content;
+  });
+});
+
+// VALORES REESTRUTURADOS
+const valGrid = document.getElementById('valoresGrid');
+function renderValores() {
+  valGrid.innerHTML = '';
+  valores.forEach((v, i) => {
+    const el = document.createElement('div');
+    el.className = 'valor-card';
+    el.innerHTML = `
+      <div class="valor-head">
+        <div class="valor-emoji-wrap" style="background:${v.bg}">${v.emoji}</div>
+        <div class="valor-info">
+          <h3>${v.nome}</h3>
+          <button class="expand-btn">Ver detalhes ↓</button>
+        </div>
+      </div>
+      <div class="valor-body hidden" id="vbody-${i}">
+        <p>${v.desc}</p>
+        <div class="valor-box">
+          <p class="box-label">📌 No Dia a Dia</p>
+          <p>${v.exemplo}</p>
+        </div>
+        <div class="valor-box">
+          <p class="box-label">💡 Conselho</p>
+          <p>${v.dica}</p>
+        </div>
+      </div>`;
+    
+    el.querySelector('.expand-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const body = document.getElementById(`vbody-${i}`);
+      const isHidden = body.classList.contains('hidden');
+      body.classList.toggle('hidden');
+      e.target.textContent = isHidden ? 'Fechar ↑' : 'Ver detalhes ↓';
+    });
+    valGrid.appendChild(el);
+  });
+}
+renderValores();
+
+// COTIDIANO
+const cotEscolhas = {};
+const cenariosContainer = document.getElementById('cenariosContainer');
+
+function renderCenarios() {
+  cenariosContainer.innerHTML = '';
+  cenarios.forEach((c, ci) => {
+    const div = document.createElement('div');
+    div.className = 'cenario-card';
+    const opcoesHtml = c.opcoes.map((op, oi) => `
+      <button class="opcao-btn" id="opcao-${ci}-${oi}" onclick="escolherCenario(${ci},${oi})">
+        <span class="op-icon">○</span>
+        <span>${op.texto}</span>
+      </button>`).join('');
+    div.innerHTML = `
+      <div class="cenario-header">
+        <span class="cen-icon">${c.icone}</span>
+        <div>
+          <small>Situação ${ci+1}</small>
+          <h3>${c.titulo}</h3>
+        </div>
+      </div>
+      <div class="cenario-body">
+        <div class="situacao-box"><p>${c.situacao}</p></div>
+        <p class="opcoes-label">O QUE VOCÊ FARIA?</p>
+        <div class="opcoes-list">${opcoesHtml}</div>
+        <div class="feedback-box" id="feedback-${ci}">
+          <strong id="feedback-title-${ci}"></strong>
+          <p id="feedback-text-${ci}"></p>
+        </div>
+      </div>`;
+    cenariosContainer.appendChild(div);
+  });
+}
+
+function escolherCenario(ci, oi) {
+  if (cotEscolhas[ci] !== undefined) return;
+  cotEscolhas[ci] = oi;
+  const opcao = cenarios[ci].opcoes[oi];
+  cenarios[ci].opcoes.forEach((op, j) => {
+    const btn = document.getElementById(`opcao-${ci}-${j}`);
+    btn.disabled = true;
+    if (j === oi) {
+      btn.classList.add(op.etica ? 'correct' : 'wrong');
+      btn.querySelector('.op-icon').textContent = op.etica ? '✓' : '✗';
+    } else if (op.etica) {
+      btn.classList.add('show-correct');
+      btn.querySelector('.op-icon').textContent = '✓';
+    }
+  });
+  const fb = document.getElementById(`feedback-${ci}`);
+  fb.classList.add('visible', opcao.etica ? 'good' : 'bad');
+  document.getElementById(`feedback-title-${ci}`).textContent = opcao.etica ? '🎉 Ótima escolha!' : '🤔 Pense bem...';
+  document.getElementById(`feedback-text-${ci}`).textContent = opcao.feedback;
+
+  if (Object.keys(cotEscolhas).length === cenarios.length) {
+    const acertos = Object.entries(cotEscolhas).filter(([ci2,oi2]) => cenarios[+ci2].opcoes[+oi2].etica).length;
+    const banner = document.getElementById('cotidianoResult');
+    banner.classList.add('visible','bounce-in');
+    document.getElementById('cotResultIcon').textContent = acertos === cenarios.length ? '🏆' : '📚';
+    document.getElementById('cotResultTitle').textContent = `Concluído: ${acertos} de ${cenarios.length} éticas!`;
+    document.getElementById('cotResultDesc').textContent = acertos === cenarios.length ? 'Excelente discernimento moral!' : 'Revise as ponderações apresentadas.';
+  }
+}
+
+function resetarCotidiano() {
+  Object.keys(cotEscolhas).forEach(k => delete cotEscolhas[k]);
+  document.getElementById('cotidianoResult').classList.remove('visible','bounce-in');
+  renderCenarios();
+}
+renderCenarios();
+
+// QUIZ
+let quizAtual = 0, quizPontos = 0, quizRespostas = [];
+function renderQuiz() {
+  const p = quizPerguntas[quizAtual];
+  document.getElementById('quizNumero').textContent = `Pergunta ${quizAtual+1} de ${quizPerguntas.length}`;
+  document.getElementById('quizPts').textContent = `🎯 ${quizPontos} pts`;
+  document.getElementById('quizProgress').style.width = `${(quizAtual/quizPerguntas.length)*100}%`;
+  document.getElementById('quizPergunta').textContent = p.pergunta;
+  const letters = ['A','B','C','D'];
+  document.getElementById('quizOpts').innerHTML = p.opcoes.map((op,i) => `
+    <button class="quiz-opt" id="qopt-${i}" onclick="escolherQuiz(${i})">
+      <span class="opt-letter">${letters[i]}</span>
+      <span>${op}</span>
+    </button>`).join('');
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('btnNext').className = 'btn-next';
+  document.getElementById('confettiContainer').innerHTML = '';
+}
+
+function escolherQuiz(idx) {
+  const p = quizPerguntas[quizAtual];
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  const acertou = idx === p.correta;
+  if (acertou) { quizPontos++; document.getElementById('quizPts').textContent = `🎯 ${quizPontos} pts`; spawnConfetti(); }
+  quizRespostas[quizAtual] = acertou;
+
+  document.querySelectorAll('.quiz-opt').forEach((btn, i) => {
+    if (i === p.correta) btn.classList.add('correct');
+    else if (i === idx && !acertou) btn.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('quizFeedback');
+  fb.classList.add('visible', acertou ? 'good' : 'bad');
+  document.getElementById('quizFeedbackTitle').textContent = acertou ? '🎉 Perfeito!' : '💡 Explicação conceitual:';
+  document.getElementById('quizFeedbackText').textContent = p.explicacao;
+
+  const btnNext = document.getElementById('btnNext');
+  btnNext.className = 'btn-next visible';
+  btnNext.textContent = quizAtual < quizPerguntas.length-1 ? 'Avançar →' : 'Finalizar 🏆';
+}
+
+function proximaPergunta() {
+  if (quizAtual < quizPerguntas.length-1) { quizAtual++; renderQuiz(); } 
+  else { mostrarFinalQuiz(); }
+}
+
+function mostrarFinalQuiz() {
+  document.getElementById('quizCard').classList.add('hidden');
+  const final = document.getElementById('quizFinal');
+  final.classList.remove('hidden');
+  document.getElementById('quizMedalha').textContent = quizPontos >= 5 ? '🥇' : '📚';
+  document.getElementById('quizPontosText').textContent = `${quizPontos} / ${quizPerguntas.length} Acertos`;
+  document.getElementById('quizMensagem').textContent = quizPontos >= 5 ? 'Domínio ético total! Parabéns!' : 'Estude as justificativas e tente novamente!';
+  document.getElementById('quizDots').innerHTML = quizPerguntas.map((_,i) =>
+    `<div class="quiz-dot ${quizRespostas[i] ? 'ok' : 'fail'}">${quizRespostas[i] ? '✓' : '✗'}</div>`
+  ).join('');
+}
+
+function reiniciarQuiz() {
+  quizAtual = 0; quizPontos = 0; quizRespostas = [];
+  document.getElementById('quizFinal').classList.add('hidden');
+  document.getElementById('quizCard').classList.remove('hidden');
+  renderQuiz();
+}
+
+function spawnConfetti() {
+  const container = document.getElementById('confettiContainer');
+  const colors = ['#dc2626','#1d4ed8','#f59e0b','#10b981'];
   for (let i = 0; i < 6; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
